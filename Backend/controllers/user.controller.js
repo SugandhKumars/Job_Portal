@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, passward, role } = req.body;
+    console.log(fullName, email, phoneNumber, passward, role);
     if (!fullName || !email || !phoneNumber || !passward || !role) {
       return res.status(400).json({
         message: "Something is missing",
@@ -21,7 +22,7 @@ export const register = async (req, res) => {
     await User.create({
       fullName,
       email,
-      phoneNumber,
+      phoneNumber: Number(phoneNumber),
       passward: hashPassward,
       role,
     });
