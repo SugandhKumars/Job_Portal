@@ -4,6 +4,8 @@ import "./index.css";
 import Home from "./components/Home";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
+import Jobs from "./components/Jobs";
+import Browse from "./components/Browse";
 function App() {
   const router = createBrowserRouter([
     {
@@ -17,6 +19,14 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/jobs",
+      element: <Jobs />,
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
     },
   ]);
   return (

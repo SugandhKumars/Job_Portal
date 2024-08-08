@@ -8,13 +8,21 @@ function Navbar() {
   return (
     <div className="flex justify-between items-center h-16 max-w-7xl mx-auto bg-white">
       <div className="font-bold text-xl">
-        Job<span className="text-red-400">Portal</span>
+        <Link to="/">
+          Job<span className="text-red-400">Portal</span>
+        </Link>
       </div>
       <div className="flex items-center gap-5">
         <ul className="flex gap-10">
-          <li className="font-medium">Home</li>
-          <li className="font-medium">Jobs</li>
-          <li className="font-medium">Browse</li>
+          <li className="font-medium">
+            <Link to="/"> Home</Link>
+          </li>
+          <li className="font-medium">
+            <Link to="/jobs">Jobs</Link>
+          </li>
+          <li className="font-medium">
+            <Link to="/browse"> Browse</Link>
+          </li>
         </ul>
         {user ? (
           <>
