@@ -3,7 +3,7 @@ import React from "react";
 
 function LatestJob() {
   return (
-    <div className="border-[1px] rounded-md shadow-lg p-3">
+    <div className="border-[1px] rounded-md shadow-lg p-3 cursor-pointer">
       <h3 className="text-lg font-semibold">Company Name</h3>
       <p className="text-sm text-gray-500 mb-3">India</p>
       <h2 className="text-xl font-bold ">Job Title</h2>
@@ -12,13 +12,24 @@ function LatestJob() {
         consectetur. adipisicing elit.{" "}
       </p>
       <div className="flex gap-6">
-        <Badge variant="outline" className="text-red-500 ">
+        <Badge
+          variant="outline"
+          className="text-red-500 hover:border-red-500 transition-all
+ "
+        >
           12 Position
         </Badge>
-        <Badge variant="outline" className="text-violet-500 ">
+        <Badge
+          variant="outline"
+          className="text-violet-500 hover:border-violet-500 transition-all
+ "
+        >
           Part Time
         </Badge>
-        <Badge variant="outline" className="text-green-500 ">
+        <Badge
+          variant="outline"
+          className="text-green-500 hover:border-green-500 transition-all "
+        >
           12 LPA
         </Badge>
       </div>

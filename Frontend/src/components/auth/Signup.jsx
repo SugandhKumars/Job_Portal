@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constanst";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import userSlice, { setLoading } from "@/redux/userSlice";
+import store from "@/redux/store";
 
 function Signup() {
   const [input, setInput] = useState({
@@ -14,6 +17,9 @@ function Signup() {
     role: "",
     file: "",
   });
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.user);
+
   const navigate = useNavigate();
   const changedValue = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -34,6 +40,7 @@ function Signup() {
       formData.append("file", input.file);
     }
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers: {
           "Content-Type": "multiplepart/form-data",
@@ -47,6 +54,8 @@ function Signup() {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (
@@ -137,7 +146,7 @@ function Signup() {
             type="submit"
             className="bg-black text-white font-bold w-full py-2 rounded-md"
           >
-            Sign Up
+            {loading ? "Please Wait" : "Sign Up"}
           </button>
           <p>
             Already has an account ?

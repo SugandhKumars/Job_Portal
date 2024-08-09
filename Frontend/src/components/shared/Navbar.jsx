@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 function Navbar() {
   const [dialog, setShowDialog] = useState(false);
-  const user = false;
+  const data = useSelector((store) => store.user.user);
+
+  const user = data;
   return (
     <div className="flex justify-between items-center h-16 max-w-7xl mx-auto bg-white">
       <div className="font-bold text-xl">
@@ -36,7 +39,7 @@ function Navbar() {
               />
             </div>
             {dialog && (
-              <div className="absolute top-16 right-0 shadow-lg border-[1px] rounded-lg px-2 w-64 p-2">
+              <div className="absolute top-16 z-50 bg-white right-0 shadow-lg border-[1px] rounded-lg px-2 w-64 p-2">
                 <div className="flex gap-2 items-center ">
                   <div className="w-12">
                     <img
@@ -45,14 +48,14 @@ function Navbar() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold">Sugandh</h3>
+                    <h3 className="font-bold">{data?.fullName || "Sugandh"}</h3>
                     <p className=" ">Lorem ipsum dolor sit</p>
                   </div>
                 </div>
                 <div className="flex items-center  gap-4 my-2">
                   <FaUser className="text-gray-500 text-lg" />
                   <button className="font-medium hover:underline">
-                    View Profile
+                    <Link to="/profile"> View Profile</Link>
                   </button>
                 </div>
                 <div className="flex   gap-4 items-center my-2">

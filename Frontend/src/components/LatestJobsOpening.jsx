@@ -10,7 +10,7 @@ function LatestJobsOpening() {
       </h2>
       <div className="grid grid-cols-3 my-10 gap-4">
         {latestJobs.slice(0, 6).map((job, index) => (
-          <LatestJob />
+          <LatestJob key={index} />
         ))}
       </div>
     </div>

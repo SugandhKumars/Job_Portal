@@ -2,12 +2,13 @@ import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { FaRegBookmark } from "react-icons/fa";
+import { Pointer } from "lucide-react";
 function Job() {
   return (
     <div className="border shadow-lg p-4 rounded-lg">
       <div className="flex justify-between mb-3">
         <p className="text-gray-500 text-sm">2 Days Ago</p>
-        <FaRegBookmark />
+        <FaRegBookmark className="cursor-pointer" />
       </div>
       <div className="flex gap-4 items-center">
         <div className="border-[1px] flex items-center justify-center py-4 p-2 rounded-md">
@@ -31,13 +32,22 @@ function Job() {
           dolorem iusto eius!
         </p>
         <div className="flex gap-4 my-4">
-          <Badge variant="outline" className="text-red-400">
+          <Badge
+            variant="outline"
+            className="text-red-400 hover:border-red-400 transition-all cursor-pointer"
+          >
             12 Position
           </Badge>
-          <Badge variant="outline" className="text-blue-400">
+          <Badge
+            variant="outline"
+            className="text-blue-400 hover:border-blue-400 transition-all cursor-pointer"
+          >
             Part Time
           </Badge>
-          <Badge variant="outline" className="text-violet-600">
+          <Badge
+            variant="outline"
+            className="text-violet-600 hover:border-violet-600 transition-all cursor-pointer"
+          >
             24 LPA
           </Badge>
         </div>

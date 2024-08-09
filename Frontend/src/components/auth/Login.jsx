@@ -4,10 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constanst";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setUser } from "@/redux/userSlice";
 
 function Login() {
   const [input, setInput] = useState({ email: "", passward: "", role: "" });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.user);
   const changedValue = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -15,6 +19,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(
         `${USER_API_ENDPOINT}/login`,
         {
@@ -32,10 +37,13 @@ function Login() {
       if (res.data.success) {
         navigate("/");
         toast.success(res.data.message);
+        dispatch(setUser(res.data.user));
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response.data?.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -95,7 +103,7 @@ function Login() {
           <p>
             Do not have any account ?
             <Link to="/signup" className="text-blue-500 hover:underline">
-              Sign Up
+              {loading ? "Please Wait" : "Sign Up"}
             </Link>
           </p>
         </form>

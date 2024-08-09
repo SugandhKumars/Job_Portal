@@ -19,8 +19,8 @@ function CategoryCarousel() {
     <div className="w-[40%]   mx-auto my-16">
       <Carousel>
         <CarouselContent>
-          {category.map((cat) => (
-            <CarouselItem className="basis-1/2  text-center ">
+          {category.map((cat, index) => (
+            <CarouselItem className="basis-1/2  text-center " key={index}>
               <button className="px-3 py-2 rounded-full border-[1px] border-violet-600">
                 {cat}
               </button>
