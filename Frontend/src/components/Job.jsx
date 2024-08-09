@@ -3,7 +3,10 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { FaRegBookmark } from "react-icons/fa";
 import { Pointer } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 function Job() {
+  const navigate = useNavigate();
+  const jobId = "kjhfkadhkjh";
   return (
     <div className="border shadow-lg p-4 rounded-lg">
       <div className="flex justify-between mb-3">
@@ -52,7 +55,12 @@ function Job() {
           </Badge>
         </div>
         <div className="flex gap-5 mt-5">
-          <Button variant="outline">Details</Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate(`/jobs/description/${jobId}`)}
+          >
+            Details
+          </Button>
           <Button className="bg-violet-600 text-white">Save For Later</Button>
         </div>
       </div>
