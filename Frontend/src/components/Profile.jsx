@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
 import { FiEdit } from "react-icons/fi";
 import { Button } from "./ui/button";
 import { MdOutlineMail } from "react-icons/md";
 import { CiMobile2 } from "react-icons/ci";
+
+import UpdateProfileDialog from "./UpdateProfileDialog";
+import { useSelector } from "react-redux";
 function Profile() {
-  const skills = ["HTML", "CSS", "JAVASCRIPT", "REACT", "REDUX", "TAILWINDCSS"];
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSelector((store) => store.user);
+  console.log(user);
   return (
     <div>
       <Navbar />
@@ -19,38 +24,43 @@ function Profile() {
                 alt=""
               />
               <div>
-                <p className="font-semibold text-lg">Full Name</p>
-                <p className="text-sm">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Assumenda incidunt aliquam temporibus voluptates officia
-                  similique?
-                </p>
+                <p className="font-semibold text-lg">{user?.fullName}</p>
+                <p className="text-sm">{user?.profile?.bio}</p>
               </div>
             </div>
-            <FiEdit className="cursor-pointer text-2xl" />
+            <FiEdit
+              onClick={() => setIsOpen(true)}
+              className="cursor-pointer text-2xl"
+            />
           </div>
           <div className="flex gap-2 items-center my-3">
             <MdOutlineMail className="text-2xl" />
-            <p className="text-sm text-gray-500">Sugandh72kumar@gmail.com</p>
+            <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
           <div className="flex gap-2 items-center my-3">
             <CiMobile2 className="text-2xl" />
-            <p className="text-sm text-gray-500">0987654321</p>
+            <p className="text-sm text-gray-500">{user?.phoneNumber}</p>
           </div>
 
           <p className="mt-5 ">Skills</p>
           <div className="flex gap-4 items-center">
-            {skills.map((skill, index) => (
-              <Button className="rounded-full ">{skill}</Button>
-            ))}
+            {user?.profile?.skills.length > 0 ? (
+              user?.profile?.skills?.map((skill, index) => (
+                <Button key={index} className="rounded-full ">
+                  {skill}
+                </Button>
+              ))
+            ) : (
+              <p className="font-bold">N/A</p>
+            )}
           </div>
           <div>
             <p className="font-bold mt-5 text-lg">Resume</p>
             <a
-              href="https://coinmarketcap.com/currencies/polygon/"
+              href={user?.profile?.resume}
               className="text-blue-500 hover:underline"
             >
-              Sugandh Resume
+              {user?.profile?.resumeOriginalName}
             </a>
           </div>
         </div>
@@ -58,6 +68,11 @@ function Profile() {
           <p className="font-bold text-lg">Applied Jobs</p>
         </div>
       </div>
+      {isOpen && (
+        <div className="absolute top-40 right-56 left-56 ">
+          <UpdateProfileDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+        </div>
+      )}
     </div>
   );
 }

@@ -2,15 +2,27 @@ import React from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { FaRegBookmark } from "react-icons/fa";
-import { Pointer } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
-function Job() {
+function Job({ job }) {
   const navigate = useNavigate();
-  const jobId = "kjhfkadhkjh";
+  const jobFunction = (mongodbTime) => {
+    const createdTime = new Date(mongodbTime);
+    const currentTime = new Date();
+    const difference = currentTime - createdTime;
+    console.log(Math.floor(difference / (24 * 60 * 60 * 1000)));
+    return Math.floor(difference / (24 * 60 * 60 * 1000));
+  };
+
+  const jobId = job?._id;
   return (
     <div className="border shadow-lg p-4 rounded-lg">
       <div className="flex justify-between mb-3">
-        <p className="text-gray-500 text-sm">2 Days Ago</p>
+        <p className="text-gray-500 text-sm">
+          {jobFunction(job?.createdAt) > 0
+            ? `${jobFunction(job?.createdAt)} days ago`
+            : "Today"}
+        </p>
         <FaRegBookmark className="cursor-pointer" />
       </div>
       <div className="flex gap-4 items-center">
@@ -22,36 +34,31 @@ function Job() {
           />
         </div>
         <div className="my-2">
-          <p className="text-lg font-semibold">Company Name</p>
+          <p className="text-lg font-semibold">{job?.company?.name}</p>
           <p className="text-sm text-gray-400">India</p>
         </div>
       </div>
       <div>
-        <p className="text-2xl font-bold my-2">Title</p>
-        <p className="text-sm text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum magnam
-          libero debitis iste suscipit. Sunt, libero. At, explicabo.
-          Exercitationem assumenda aut similique officiis illo at fugit optio
-          dolorem iusto eius!
-        </p>
+        <p className="text-2xl font-bold my-2">{job?.title}</p>
+        <p className="text-sm text-gray-500">{job?.description}</p>
         <div className="flex gap-4 my-4">
           <Badge
             variant="outline"
             className="text-red-400 hover:border-red-400 transition-all cursor-pointer"
           >
-            12 Position
+            {job?.position} Position
           </Badge>
           <Badge
             variant="outline"
             className="text-blue-400 hover:border-blue-400 transition-all cursor-pointer"
           >
-            Part Time
+            {job?.jobType}
           </Badge>
           <Badge
             variant="outline"
             className="text-violet-600 hover:border-violet-600 transition-all cursor-pointer"
           >
-            24 LPA
+            INR{job?.salary}
           </Badge>
         </div>
         <div className="flex gap-5 mt-5">

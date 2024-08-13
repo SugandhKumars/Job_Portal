@@ -98,12 +98,12 @@ function Login() {
             type="submit"
             className="bg-black text-white font-bold w-full py-2 rounded-md"
           >
-            Login
+            {loading ? "Please Wait" : "Login"}
           </button>
           <p>
             Do not have any account ?
             <Link to="/signup" className="text-blue-500 hover:underline">
-              {loading ? "Please Wait" : "Sign Up"}
+              SignUp
             </Link>
           </p>
         </form>
